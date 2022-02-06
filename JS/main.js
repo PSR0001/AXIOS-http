@@ -1,6 +1,6 @@
 // GET REQUEST
-function getTodos() {
-  //for debugging
+function getTodos () {
+  // for debugging
   // console.log('GET Request');
   // old method to do requests
   // axios({
@@ -19,13 +19,13 @@ function getTodos() {
 }
 
 // POST REQUEST
-function addTodo() {
+function addTodo () {
   // for debugging
   // console.log('POST Request');
   axios
-  .post('https://jsonplaceholder.typicode.com/todos',{
-    title : "New York", //Enter A JSON
-    work : "Programmer",
+  .post('https://jsonplaceholder.typicode.com/todos', {
+    title: 'New York', // Enter A JSON
+    work: 'Programmer',
     completed: false
   })
   .then(res => showOutput(res))
@@ -33,20 +33,20 @@ function addTodo() {
 }
 
 // PUT/PATCH REQUEST
-function updateTodo() {
-  //for debugging
+function updateTodo () {
+  // for debugging
   // console.log('PUT/PATCH Request');
   // url ::https://jsonplaceholder.typicode.com/todos/id <--important
   axios
-  .put('https://jsonplaceholder.typicode.com/todos/1',{
-    title : "New York", //Enter A JSON
-    work : "Programmer",
+  .put('https://jsonplaceholder.typicode.com/todos/1', {
+    title: 'New York', // Enter A JSON
+    work: 'Programmer',
     completed: true
   })
   .then(res => showOutput(res))
-  .catch(err => console.log(err))
+  . catch(err => console.log(err))
 
-  //PATCH
+  // PATCH
   // axios
   // .patch('https://jsonplaceholder.typicode.com/todos/1',{
   //   title : "New York", //Enter A JSON
@@ -60,11 +60,10 @@ function updateTodo() {
   *  put actually changed the entire json relate to the particuler id
   *  but in case of patch request it's just chaged according to user
   */
-
 }
 
 // DELETE REQUEST
-function removeTodo() {
+function removeTodo () {
   // debugging
   // console.log('DELETE Request');
   axios
@@ -74,8 +73,8 @@ function removeTodo() {
 }
 
 // SIMULTANEOUS DATA
-function getData() {
-  //debugging
+function getData () {
+  // debugging
   // console.log('Simultaneous Request');
 
   // axios.all([
@@ -90,49 +89,48 @@ function getData() {
   // })
   // .catch(err => console.log(err))
 
-//smater way
-axios
+// smater way
+  axios
 .all([
   axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5'),
   axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5')
 ])
-.then(axios.spread((todos,posts)=>showOutput(posts)))
+.then(axios.spread((todos, posts) => showOutput(posts)))
 .catch(err => console.log(err))
-
 }
 
 // CUSTOM HEADERS
-function customHeaders() {
-  console.log('Custom Headers');
+function customHeaders () {
+  console.log('Custom Headers')
 }
 
 // TRANSFORMING REQUESTS & RESPONSES
-function transformResponse() {
-  console.log('Transform Response');
+function transformResponse () {
+  console.log('Transform Response')
 }
 
 // ERROR HANDLING
-function errorHandling() {
-  console.log('Error Handling');
+function errorHandling () {
+  console.log('Error Handling')
 }
 
 // CANCEL TOKEN
-function cancelToken() {
-  console.log('Cancel Token');
+function cancelToken () {
+  console.log('Cancel Token')
 }
 
 // INTERCEPTING REQUESTS & RESPONSES
-axios.interceptors.request.use(config=>{
-  console.log(`${config.method.toUpperCase()} request sent to ${config.url} at ${new Date().getTime()}`);
+axios.interceptors.request.use(config => {
+  console.log(`${config.method.toUpperCase()} request sent to ${config.url} at ${new Date().getTime()}`)
   return config
 },
-error=>{
-  return Promise.reject(error);
+error => {
+  return Promise.reject(error)
 })
 // AXIOS INSTANCES
 
 // Show output in browser
-function showOutput(res) {
+function showOutput (res) {
   document.getElementById('res').innerHTML = `
   <div class="card card-body mb-4">
     <h5>Status: ${res.status}</h5>
@@ -161,16 +159,16 @@ function showOutput(res) {
       <pre>${JSON.stringify(res.config, null, 2)}</pre>
     </div>
   </div>
-`;
+`
 }
 
 // Event listeners
-document.getElementById('get').addEventListener('click', getTodos);
-document.getElementById('post').addEventListener('click', addTodo);
-document.getElementById('update').addEventListener('click', updateTodo);
-document.getElementById('delete').addEventListener('click', removeTodo);
-document.getElementById('sim').addEventListener('click', getData);
-document.getElementById('headers').addEventListener('click', customHeaders);
-document.getElementById('transform').addEventListener('click', transformResponse);
-document.getElementById('error').addEventListener('click', errorHandling);
-document.getElementById('cancel').addEventListener('click', cancelToken);
+document.getElementById('get').addEventListener('click', getTodos)
+document.getElementById('post').addEventListener('click', addTodo)
+document.getElementById('update').addEventListener('click', updateTodo)
+document.getElementById('delete').addEventListener('click', removeTodo)
+document.getElementById('sim').addEventListener('click', getData)
+document.getElementById('headers').addEventListener('click', customHeaders)
+document.getElementById('transform').addEventListener('click', transformResponse)
+document.getElementById('error').addEventListener('click', errorHandling)
+document.getElementById('cancel').addEventListener('click', cancelToken)
