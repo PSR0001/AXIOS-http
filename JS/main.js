@@ -1,5 +1,5 @@
 //AXIOS-GLOBAL-FOR-AUTH-Token
-axios.defaults.headers.common['x-auth-token'] = 'some-token'
+axios.defaults.headers.common["x-auth-token"] = "some-token";
 
 // GET REQUEST
 function getTodos() {
@@ -106,18 +106,22 @@ function getData() {
 function customHeaders() {
   // console.log("Custom Headers");
   const config = {
-    headers:{
-      'Content-Type': 'applocation/json',
-      authorization: 'sometoken'
-    }
-  }
+    headers: {
+      "Content-Type": "applocation/json",
+      authorization: "sometoken",
+    },
+  };
 
   axios
-    .post("https://jsonplaceholder.typicode.com/todos", {
-      title: "New York", // Enter A JSON
-      work: "Programmer",
-      completed: false,
-    },config)
+    .post(
+      "https://jsonplaceholder.typicode.com/todos",
+      {
+        title: "New York", // Enter A JSON
+        work: "Programmer",
+        completed: false,
+      },
+      config
+    )
     .then((res) => showOutput(res))
     .catch((err) => console.log(err));
 }
@@ -125,35 +129,37 @@ function customHeaders() {
 // TRANSFORMING REQUESTS & RESPONSES
 function transformResponse() {
   // console.log("Transform Response");
-  const options={
-    method: 'post',
-    url: 'https://jsonplaceholder.typicode.com/todos',
+  const options = {
+    method: "post",
+    url: "https://jsonplaceholder.typicode.com/todos",
     data: {
-      'title': 'hi my name is Partha Sigha Roy'
+      title: "hi my name is Partha Sigha Roy",
     },
-    transformResponse: axios.defaults.transformResponse.concat(data=>{
-      data.title = data.title.toUpperCase()
-      return data
-    })
-  }
+    transformResponse: axios.defaults.transformResponse.concat((data) => {
+      data.title = data.title.toUpperCase();
+      return data;
+    }),
+  };
 
-  axios(options).then(res=>showOutput(res)).catch(err=>console.log(err))
+  axios(options)
+    .then((res) => showOutput(res))
+    .catch((err) => console.log(err));
 }
 
 // ERROR HANDLING
 function errorHandling() {
   // console.log("Error Handling");
   axios
-    .get("https://jsonplaceholder.typicode.com/todoss")//error in url response.status = 404
+    .get("https://jsonplaceholder.typicode.com/todoss") //error in url response.status = 404
     .then((res) => showOutput(res))
     .catch((err) => {
-      if(err.response){
+      if (err.response) {
         //server response with status with 200 range
         console.log(err.response.data);
         console.log(err.response.status);
 
-        if(err.response.status === 404){
-          alert('404! page not found.')
+        if (err.response.status === 404) {
+          alert("404! page not found.");
         }
       }
     });
@@ -164,21 +170,27 @@ function cancelToken() {
   // console.log("Cancel Token");
   const source = axios.CancelToken.source();
   axios
-    .get("https://jsonplaceholder.typicode.com/todos",{
-      cancelToken: source.token
+    .get("https://jsonplaceholder.typicode.com/todos", {
+      cancelToken: source.token,
     })
     .then((res) => showOutput(res))
     .catch((thrown) => {
-      if(axios.isCancel(thrown)){
-        alert('Request Cancel',thrown.message)
+      if (axios.isCancel(thrown)) {
+        alert("Request Cancel", thrown.message);
       }
     });
-    if(true){
-      source.cancel()
-      alert('Request Canceled Sucessfully !!')
-    }
+  if (true) {
+    source.cancel();
+    alert("Request Canceled Sucessfully !!");
+  }
 }
-
+// AXIOS INSTANCES
+function instanceToken() {
+  const axiosIntance = axios.create({
+    baseURL: "https://jsonplaceholder.typicode.com",
+  });
+  axiosIntance.get("/comments?_limit=5").then((res) => showOutput(res));
+}
 // INTERCEPTING REQUESTS & RESPONSES
 axios.interceptors.request.use(
   (config) => {
@@ -193,7 +205,6 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-// AXIOS INSTANCES
 
 // Show output in browser
 function showOutput(res) {
@@ -240,3 +251,4 @@ document
   .addEventListener("click", transformResponse);
 document.getElementById("error").addEventListener("click", errorHandling);
 document.getElementById("cancel").addEventListener("click", cancelToken);
+document.getElementById("instance").addEventListener("click", instanceToken);
