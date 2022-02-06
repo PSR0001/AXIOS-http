@@ -1,3 +1,6 @@
+//AXIOS-GLOBAL-FOR-AUTH-Token
+axios.defaults.headers.common['x-auth-token'] = 'some-token'
+
 // GET REQUEST
 function getTodos() {
   // for debugging
@@ -139,7 +142,21 @@ function transformResponse() {
 
 // ERROR HANDLING
 function errorHandling() {
-  console.log("Error Handling");
+  // console.log("Error Handling");
+  axios
+    .get("https://jsonplaceholder.typicode.com/todoss")//error in url response.status = 404
+    .then((res) => showOutput(res))
+    .catch((err) => {
+      if(err.response){
+        //server response with status with 200 range
+        console.log(err.response.data);
+        console.log(err.response.status);
+
+        if(err.response.status === 404){
+          alert('404! page not found.')
+        }
+      }
+    });
 }
 
 // CANCEL TOKEN
