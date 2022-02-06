@@ -56,11 +56,21 @@ function updateTodo() {
   // .then(res => showOutput(res))
   // .catch(err => console.log(err))
 
+  /* There is a difference between PUT & PATCH
+  *  put actually changed the entire json relate to the particuler id
+  *  but in case of patch request it's just chaged according to user
+  */
+
 }
 
 // DELETE REQUEST
 function removeTodo() {
-  console.log('DELETE Request');
+  // debugging
+  // console.log('DELETE Request');
+  axios
+  .delete('https://jsonplaceholder.typicode.com/todos/1')
+  .then(res => showOutput(res))
+  .catch(err => console.log(err))
 }
 
 // SIMULTANEOUS DATA
